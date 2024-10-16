@@ -24,7 +24,7 @@ has_many: sells
 | Colum              | Type   | Options       |
 | ------------------ | ------ | ------------- |
 | item_title         | string | null: false |
-| user               | reference | null: false, foreign_key: true  |
+| user               | references | null: false, foreign_key: true  |
 | explanation        | text   | null: false |
 | category_id        | integer | null: false |
 | condition_id       | integer | null: false |
@@ -33,19 +33,19 @@ has_many: sells
 | delivery_day_id    | integer | null: false |
 | sells_price        | integer | null: false |
 
-belong_to :user
+belongs_to :user
 has_one :sell
 
 ## sells テーブル
 
 | Colum              | Type   | Options       |
 | ------------------ | ------ | ------------- |
-| user               | string | null: false, foreign_key: true|
-| item               | reference | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true|
+| item               | references | null: false, foreign_key: true |
 
 has_one :address
-has_one :item
-belong_to :user
+belongs_to :item
+belongs_to :user
 
 
 
@@ -54,11 +54,11 @@ belong_to :user
 | Colum              | Type   | Options       |
 | ------------------ | ------ | ------------- |
 | post_code          | string | null: false |
-| shipping_source_id | string | null: false |
+| shipping_source_id | float  | null: false |
 | municipality       | string | null: false |
 | block_number       | string | null: false |
-| bulding_name       | string |             |
+| building_name      | string |             |
 | telephone_number   | string | null: false |
-| sell               | refernce | null:false, foreign_key: true|
+| sell               | references | null:false, foreign_key: true|
 
-belong_to:sell
+belongs_to:sell
