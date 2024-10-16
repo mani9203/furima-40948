@@ -35,19 +35,20 @@ has_many: sells
 | sells_price        | integer | null: false |
 
 belong_to :user
-
+belong_to :sell
 
 ## sells テーブル
 
 | Colum              | Type   | Options       |
 | ------------------ | ------ | ------------- |
 | buyer              | string | null: false |
-| item_id            | reference | null: false |
+| item               | reference | null: false, foreign_key: true |
 
+has_many :address
 belong_to :user
 
 
-## addlesses テーブル
+## addresses テーブル
 
 | Colum              | Type   | Options       |
 | ------------------ | ------ | ------------- |
@@ -57,5 +58,6 @@ belong_to :user
 | block_number       | string | null: false |
 | bulding_name       | string |             |
 | telephone_number   | string | null: false |
-| sell _id           | refernce | null:false, foreign_key: true|
+| sell               | refernce | null:false, foreign_key: true|
 
+belong_to:sell
