@@ -4,7 +4,6 @@
 
 | Colum              | Type   | Options       |
 | ------------------ | ------ | ------------- |
-| name               | string | null: false   |
 | email              | string | null: false,unique:true |
 | encrypted_password | string | null: false |
 | nickname           | string | null: false |
@@ -35,17 +34,19 @@ has_many: sells
 | sells_price        | integer | null: false |
 
 belong_to :user
-belong_to :sell
+has_one :sell
 
 ## sells テーブル
 
 | Colum              | Type   | Options       |
 | ------------------ | ------ | ------------- |
-| buyer              | string | null: false |
+| user               | string | null: false, foreign_key: true|
 | item               | reference | null: false, foreign_key: true |
 
-has_many :address
+has_one :address
+has_one :item
 belong_to :user
+
 
 
 ## addresses テーブル
