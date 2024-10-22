@@ -4,8 +4,9 @@ class Item < ApplicationRecord
   has_one_attached :image
 
 
-  validates :item_title, presence: true
-  validates :explanation, presence: true
+  validates :item_title, presence: true ,length: { maximum: 140 }
+  validates :image, presence: true
+  validates :explanation, presence: true,length: { maximum: 1000 }
   validates :category_id, presence: true, numericality: { other_than: 1 , message: "can't be blank" } 
   validates :condition_id, presence: true, numericality: { other_than: 1 , message: "can't be blank" }
   validates :shipping_fee_id, presence: true, numericality: { other_than: 1 , message: "can't be blank" }
