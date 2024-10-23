@@ -12,6 +12,11 @@ RSpec.describe Item, type: :model do
       end
     end
     context '出品できないとき' do
+      it 'ユーザーが紐付いていなければ出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
+      end
       it '商品説明が空では出品できない' do
         @item.explanation = ''
         @item.valid?
@@ -56,6 +61,21 @@ RSpec.describe Item, type: :model do
         @item.sells_price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include "Sells price can't be blank"
+      end
+      it '価格が半角数値以外では出品できない' do
+        @item.sells_price = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Sells price can't be blank"
+      end
+      it '価格が300未満の値では保存できないこと' do
+        @item.sells_price = '299'
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Sells price must be greater than or equal to 300"
+      end
+      it '価格が10000000以上の値では保存できないこと' do
+        @item.sells_price = 10000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include ("Sells price must be less than or equal to 9999999")
       end
     end
   end
