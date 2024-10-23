@@ -14,9 +14,9 @@
 | date_of_birth      | date   | null: false |
 
 ### アソシエーション
+
 has_many: items
 has_many: sells
-
 
 
 ## items テーブル
