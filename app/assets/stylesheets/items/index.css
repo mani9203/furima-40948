@@ -245,9 +245,11 @@ a {
 }
 
 .item-lists>.list {
+  flex: 0 1 calc(33.333% - 16px); /* 3列レイアウト */
+  box-sizing: border-box;
   width: 37vh;
   padding: 1vw;
-  background-color: #FFF;
+  background-color: #FFF
 }
 
 
@@ -258,6 +260,7 @@ a {
 .item-img {
   width: 33vh;
   height: 33vh;
+  object-fit: cover; 
 }
 
 .sold-out {
