@@ -71,10 +71,17 @@ RSpec.describe SellAddress, type: :model do
         @sell_address.valid?
         expect(@sell_address.errors.full_messages).to include("Telephone number Input only number.is invalid")
       end
+
       it '電話番号に数字以外が含まれている場合は保存できないこと' do
         @sell_address.telephone_number = '01234abc890'
         @sell_address.valid?
         expect(@sell_address.errors.full_messages).to include("Telephone number Input only number.is invalid")
+      end
+
+      it "tokenが空では登録できないこと" do
+        @sell_address.token = nil
+        @sell_address.valid?
+        expect(@sell_address.errors.full_messages).to include("Token can't be blank")
       end
     end
 end
