@@ -1,6 +1,6 @@
 <%= render "shared/second-header"%>
 
-<%= include_gon %>
+<%= Gon::Base.render_data %>
 
 <div class='transaction-contents'>
   <div class='transaction-main'>
@@ -33,7 +33,8 @@
     </div>
     <%# /支払額の表示 %>
 
-    <%= form_with model: @sell_address, url:item_sells_path(@item),  id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+    <%= form_with model: @sell_address, url:item_sells_path(@item.id),  id: 'charge-form', class: 'transaction-form-wrap',local: true do |f| %>
+      <%= f.hidden_field :token, value: @token %>
 
     <%= render 'shared/error_messages', model: f.object %>
     

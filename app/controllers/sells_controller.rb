@@ -1,12 +1,22 @@
 class SellsController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
+  before_action :current_user, only: [:index, :create]
+
   def index
-    @item = Item.find(params[:item_id]) 
+    if current_user == @item.user
+      redirect_to root_path
+    end
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @sell_address = SellAddress.new
   end
 
+  def new
+    @sell_address = SellAddress.new
+    @token = generate_token_method
+  end
+
   def create
-    @item = Item.find(params[:item_id])
     @sell_address = SellAddress.new(sell_params)
     if @sell_address.valid?
       pay_item
@@ -20,7 +30,7 @@ class SellsController < ApplicationController
   
 
   def sell_params
-    params.require(:sell_address).permit(:post_code, :shipping_source_id, :municipality, :block_number, :building_name, :telephone_number).merge(user_id: current_user.id, token: params[:token])
+    params.require(:sell_address).permit(:post_code, :shipping_source_id, :municipality, :block_number, :building_name, :telephone_number, :token).merge(user_id: current_user.id, item_id: params[:item_id],token: params[:token])
   end
 
   def pay_item
@@ -30,6 +40,14 @@ class SellsController < ApplicationController
       card: sell_params[:token],    # カードトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def correct_user
+    redirect_to root_path unless current_user.id == @item.user_id
   end
 
 end

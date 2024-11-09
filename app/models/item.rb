@@ -22,5 +22,8 @@ class Item < ApplicationRecord
   belongs_to :shipping_fee
   belongs_to :shipping_source
 
+  def sold_out?
+    self.sold == 0
+  end
 end
 
