@@ -1,7 +1,7 @@
 class SellsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
-  before_action :current_user, only: [:index, :create]
+  before_action :redirect_if_not_authorized, only: [:index, :create]
 
   def index
     if current_user == @item.user
@@ -46,8 +46,10 @@ class SellsController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
-  def correct_user
-    redirect_to root_path unless current_user.id == @item.user_id
+  def redirect_if_not_authorized
+    if current_user.id == @item.user_id || @item.sell
+      redirect_to root_path, alert: 'You are not authorized to access this page.'
+    end
   end
 
 end
