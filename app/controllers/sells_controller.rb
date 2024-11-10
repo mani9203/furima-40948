@@ -12,8 +12,6 @@ class SellsController < ApplicationController
   end
 
   def new
-    @sell_address = SellAddress.new
-    @token = generate_token_method
   end
 
   def create
@@ -29,6 +27,7 @@ class SellsController < ApplicationController
   end
   
 
+  private
   def sell_params
     params.require(:sell_address).permit(:post_code, :shipping_source_id, :municipality, :block_number, :building_name, :telephone_number, :token).merge(user_id: current_user.id, item_id: params[:item_id],token: params[:token])
   end

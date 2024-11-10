@@ -2,13 +2,22 @@ require 'rails_helper'
 
 RSpec.describe SellAddress, type: :model do
   before do
-    @sell_address = FactoryBot.build(:sell_address)
+    user = FactoryBot.create(:user)
+    puts "Created user ID: #{user.id}"
+    item = FactoryBot.create(:item, user: user) 
+    puts "Created item ID: #{item.id}" 
+    @sell_address = FactoryBot.build(:sell_address, user_id: user.id, item_id: item.id)
   end
 
   describe '商品購入'
 
     context '内容に問題がない場合' do
       it 'すべての値が正しく入力されていれば保存できること' do
+        expect(@sell_address).to be_valid
+      end
+
+      it '建物名が空でも保存できること' do
+        @sell_address.building_name = ''
         expect(@sell_address).to be_valid
       end
     end
@@ -44,11 +53,6 @@ RSpec.describe SellAddress, type: :model do
         expect(@sell_address.errors.full_messages).to include("Block number can't be blank")
       end
 
-      it '建物名が空でも保存できること' do
-        @sell_address.building_name = ''
-        expect(@sell_address).to be_valid
-      end
-
       it '建物名は任意であること' do
         @sell_address.building_name = 'ビル名'
         expect(@sell_address).to be_valid
@@ -82,6 +86,18 @@ RSpec.describe SellAddress, type: :model do
         @sell_address.token = nil
         @sell_address.valid?
         expect(@sell_address.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it "user_idが空では登録できないこと" do
+        @sell_address.user_id = nil
+        @sell_address.valid?
+        expect(@sell_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "item_idが空では登録できないこと" do
+        @sell_address.item_id = nil
+        @sell_address.valid?
+        expect(@sell_address.errors.full_messages).to include("Item can't be blank")
       end
     end
 end

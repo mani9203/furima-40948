@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :create]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
   before_action :sold_item, only: [:edit, :update]
@@ -29,7 +29,6 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      @item.update(sold: true) if params[:item][:sell]  # 購入フラグの確認
       redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
