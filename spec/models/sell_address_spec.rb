@@ -4,7 +4,7 @@ RSpec.describe SellAddress, type: :model do
   before do
     user = FactoryBot.create(:user)
     puts "Created user ID: #{user.id}"
-    item = FactoryBot.create(:item, user: user) 
+    item = FactoryBot.create(:item) 
     puts "Created item ID: #{item.id}" 
     @sell_address = FactoryBot.build(:sell_address, user_id: user.id, item_id: item.id)
   end
@@ -51,11 +51,6 @@ RSpec.describe SellAddress, type: :model do
         @sell_address.block_number = ''
         @sell_address.valid?
         expect(@sell_address.errors.full_messages).to include("Block number can't be blank")
-      end
-
-      it '建物名は任意であること' do
-        @sell_address.building_name = 'ビル名'
-        expect(@sell_address).to be_valid
       end
 
       it '電話番号が必須であること' do

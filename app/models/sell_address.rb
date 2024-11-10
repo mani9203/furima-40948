@@ -1,6 +1,6 @@
 class SellAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :token, :post_code, :shipping_source_id, :municipality, :block_number, :building_name, :telephone_number, :sell, :user_id, :item_id
+  attr_accessor :user_id, :item_id, :token, :post_code, :shipping_source_id, :municipality, :block_number, :building_name, :telephone_number, :sell
 
   with_options presence: true do
     validates :user_id

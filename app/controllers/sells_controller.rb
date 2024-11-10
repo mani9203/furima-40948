@@ -11,9 +11,6 @@ class SellsController < ApplicationController
     @sell_address = SellAddress.new
   end
 
-  def new
-  end
-
   def create
     @sell_address = SellAddress.new(sell_params)
     if @sell_address.valid?
@@ -29,7 +26,7 @@ class SellsController < ApplicationController
 
   private
   def sell_params
-    params.require(:sell_address).permit(:post_code, :shipping_source_id, :municipality, :block_number, :building_name, :telephone_number, :token).merge(user_id: current_user.id, item_id: params[:item_id],token: params[:token])
+    params.require(:sell_address).permit(:post_code, :shipping_source_id, :municipality, :block_number, :building_name, :telephone_number).merge(user_id: current_user.id, item_id: params[:item_id],token: params[:token])
   end
 
   def pay_item
