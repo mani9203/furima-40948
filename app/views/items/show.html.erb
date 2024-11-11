@@ -10,8 +10,8 @@
     <div class="item-img-content">
       <%= image_tag @item.image.attached? ? @item.image : "item-sample.png", class: "item-box-img" if @item.image.attached?%>
       <% if @item.sell %>
-        <div class="sold-out-overlay">
-          <span class="sold-out">sold out!!</span>
+        <div class="sold-out">
+          <span class>sold out!!</span>
         </div>
       <% end %>
     </div>
@@ -107,7 +107,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <a href="#" class="another-item"><%= @item.delivery_day.name %>をもっと見る</a>
+  <a href="#" class="another-item"><%= @item.category.name %>をもっと見る</a>
 </div>
 
 <%= render "shared/footer" %>
