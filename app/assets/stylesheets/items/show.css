@@ -205,3 +205,18 @@
   font-weight: bold;
   font-size: 23px;
 }
+
+
+.sold-out {
+  color: #FFF;
+  font-size: 45px;
+  font: bold;
+}
+
+.sold-out-overlay {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+  background-color: crimson;
+  transform: skewY(-10deg);
+}
